@@ -3,6 +3,8 @@
 #define INC_5_GAME_H
 
 
+#include <vector>
+
 class Game {
 public:
     Game();
@@ -13,7 +15,7 @@ public:
     void game_loop();
 
 protected:
-
+    //std::vector
 
 };
 

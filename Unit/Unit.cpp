@@ -2,6 +2,8 @@
 
 #include "Unit.h"
 
+/* Constructors */
+
 Unit::Unit() {
     armor = 0;
     maxArmor = 0;

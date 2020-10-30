@@ -1,0 +1,12 @@
+
+
+#ifndef ANTS_VS_SOME_BEES_ACTIONTYPE_H
+#define ANTS_VS_SOME_BEES_ACTIONTYPE_H
+
+enum ActionType {
+    ATTACK,
+    HARVEST,
+    IDLE
+};
+
+#endif //ANTS_VS_SOME_BEES_ACTIONTYPE_H
