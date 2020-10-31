@@ -15,6 +15,6 @@ void Game::game_loop() {
     // 4. Bees act
     //      a) Move
     //   OR b) Attack
-
-
+    std::vector<int> j;
+    bool stillHere[j.size()];
 }

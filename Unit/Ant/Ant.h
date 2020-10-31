@@ -1,6 +1,6 @@
 
-#ifndef INC_5_ANT_H
-#define INC_5_ANT_H
+#ifndef ANTS_VS_SOMEBEES_ANT_H
+#define ANTS_VS_SOMEBEES_ANT_H
 
 
 #include "../Unit.h"
@@ -12,7 +12,7 @@ protected:
 
 public:
     Ant();
-    Ant(int foodCost);
+    Ant(int armor, int maxArmor, Space* location, bool targetable, int foodCost);
 
     virtual void act() = 0;
 
@@ -22,4 +22,4 @@ public:
 };
 
 
-#endif //INC_5_ANT_H
+#endif //ANTS_VS_SOMEBEES_ANT_H

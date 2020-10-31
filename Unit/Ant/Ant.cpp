@@ -7,7 +7,8 @@ Ant::Ant() {
     foodCost = 0;
 }
 
-Ant::Ant(int foodCost) {
+Ant::Ant(int armor, int maxArmor, Space* location, bool targetable, int foodCost)
+    : Unit(armor, maxArmor, location, targetable) {
     this->foodCost = foodCost;
 }
 
