@@ -24,7 +24,6 @@ public:
 
     Bee* enemyInRange();
     void attack(Bee* target);
-
 };
 
 

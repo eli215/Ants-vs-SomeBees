@@ -21,7 +21,7 @@ public:
     void setNext(Space *next);
 
 public:
-    Space();
+    Space(const int coords[2] = nullptr);
 
     void move();
 
@@ -36,6 +36,10 @@ public:
 
     bool isBlocked() const;
     void setBlocked(bool blocked);
+
+    void insertAnt(Ant *ant);
+
+    void insertBee(Bee *bee);
 };
 
 

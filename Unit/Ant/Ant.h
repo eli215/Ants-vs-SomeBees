@@ -11,7 +11,7 @@ protected:
     int foodCost;
 
 public:
-    Ant();
+    Ant(Space* location = nullptr);     // default constructor (w/ default location arg)
     Ant(int armor, int maxArmor, Space* location, bool targetable, int foodCost);
 
     virtual void act() = 0;

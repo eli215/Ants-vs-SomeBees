@@ -3,7 +3,8 @@
 
 /* Constructors */
 
-Ant::Ant() {
+// default constructor - shouldn't be used
+Ant::Ant(Space* location) : Unit(0, 0, location, false) {
     foodCost = 0;
 }
 

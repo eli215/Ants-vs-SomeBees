@@ -9,9 +9,10 @@ class Bee : public Unit {
 protected:
 
 public:
-    Bee();
-    virtual void act() = 0;
+    Bee(Space* location = nullptr);     // default constructor (w/ default location arg)
+    Bee(int armor, int maxArmor, Space* location, bool targetable);
 
+    virtual void act() = 0;
 
     void move();
 };

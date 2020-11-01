@@ -1,10 +1,13 @@
 
 #include "Space.h"
-#include "Unit/Ant/Ant.h"
+//#include "Unit/Ant/Ant.h"
+#include "Unit/Ant/Bodyguard.h"
 #include "Unit/Bee/Bee.h"
+#include <typeinfo>
 
-Space::Space() : coordinates() {
-
+Space::Space(const int coords[2]) : coordinates{coords[0], coords[1]} {
+    blocked = false;
+    next = nullptr;
 }
 
 
@@ -16,12 +19,24 @@ const std::vector<Ant *> &Space::getAnts() const {
     return ants;
 }
 
+void Space::insertAnt(Ant* ant) {
+    if (typeid(Bodyguard) == typeid(ant)) {
+        ants.insert(ants.begin(), ant);     // bodyguard goes before other ant(s)
+    } else {
+        ants.push_back(ant);
+    }
+}
+
 void Space::setAnts(const std::vector<Ant *> &ants) {
     this->ants = ants;
 }
 
 const std::vector<Bee *> &Space::getBees() const {
     return bees;
+}
+
+void Space::insertBee(Bee* bee) {
+    bees.push_back(bee);
 }
 
 void Space::setBees(const std::vector<Bee *> &bees) {
@@ -47,6 +62,7 @@ void Space::setNext(Space *next) {
 void Space::move() {
     Bee* b;
     b->move();
+
 
 }
 
