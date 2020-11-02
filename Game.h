@@ -7,6 +7,7 @@
 #include "Unit/Unit.h"
 #include "Unit/Ant/Ant.h"
 #include "Unit/Bee/BasicBee.h"
+#include "Unit/Ant/Thrower.h"
 
 class Game {
 public:
@@ -20,7 +21,7 @@ public:
 
 protected:
     //std::vector<Space> spaces;
-    Space *spaces[BOARD_LENGTH];
+    Space spaces[BOARD_LENGTH];
 
     void insertUnit(Unit *unit, int position);
 };

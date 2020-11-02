@@ -14,9 +14,16 @@ protected:
     std::vector<Ant*> ants;
     std::vector<Bee*> bees;
     bool blocked;
+    Space *last;
+public:
+    Space *getLast() const;
+
+    void setLast(Space *last);
+
+protected:
     Space *next;
 public:
-    Space *getNext() const;
+    Space *getNext();
 
     void setNext(Space *next);
 

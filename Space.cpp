@@ -7,6 +7,7 @@
 
 Space::Space(const int coords[2]) : coordinates{coords[0], coords[1]} {
     blocked = false;
+    last = nullptr;
     next = nullptr;
 }
 
@@ -51,7 +52,7 @@ void Space::setBlocked(bool blocked) {
     this->blocked = blocked;
 }
 
-Space *Space::getNext() const {
+Space *Space::getNext() {
     return next;
 }
 
@@ -64,6 +65,14 @@ void Space::move() {
     b->move();
 
 
+}
+
+Space *Space::getLast() const {
+    return last;
+}
+
+void Space::setLast(Space *last) {
+    Space::last = last;
 }
 
 

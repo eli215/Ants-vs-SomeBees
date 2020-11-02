@@ -7,10 +7,11 @@
 // abstract Bee class
 class Bee : public Unit {
 protected:
+    int moveSize;
 
 public:
     Bee(Space* location = nullptr);     // default constructor (w/ default location arg)
-    Bee(int armor, int maxArmor, Space* location, bool targetable);
+    Bee(int armor, int maxArmor, Space* location, bool targetable, int moveSize);
 
     virtual void act() = 0;
 
