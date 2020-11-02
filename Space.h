@@ -10,26 +10,21 @@ class Bee;
 
 class Space {
 protected:
-    const int coordinates[2];       // coordinates cannot be changed after initialization
+    int coordinates[2];       //x coordinates cannot be changed after initialization
     std::vector<Ant*> ants;
     std::vector<Bee*> bees;
     bool blocked;
-    Space *last;
+
+    Space *last; // x
+    Space *next; // x
 public:
-    Space *getLast() const;
+    Space *getLast() const; //x
+    void setLast(Space *last);  // x
+    Space *getNext();   // x
+    void setNext(Space *next); //x
 
-    void setLast(Space *last);
-
-protected:
-    Space *next;
-public:
-    Space *getNext();
-
-    void setNext(Space *next);
-
-public:
-    Space(const int coords[2] = nullptr);
-
+    //Space(const int coords[2] = nullptr); // x
+    Space();
     void move();
 
     /* Getters & Setters */

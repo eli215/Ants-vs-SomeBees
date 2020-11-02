@@ -2,8 +2,8 @@
 #ifndef ANTS_VS_SOME_BEES_THROWER_H
 #define ANTS_VS_SOME_BEES_THROWER_H
 
-#include "Ant.h"
-#include "../Bee/Bee.h"
+#include "../Ant.h"
+#include "../../Bee/Bee.h"
 
 
 class Thrower : public Ant {

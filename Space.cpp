@@ -5,7 +5,7 @@
 #include "Unit/Bee/Bee.h"
 #include <typeinfo>
 
-Space::Space(const int coords[2]) : coordinates{coords[0], coords[1]} {
+Space::Space() {
     blocked = false;
     last = nullptr;
     next = nullptr;
