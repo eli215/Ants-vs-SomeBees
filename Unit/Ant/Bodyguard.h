@@ -6,7 +6,7 @@
 
 class Bodyguard : public Ant {
 public:
-
+    static const int BASE_FOOD_COST = 4;
 protected:
 
 

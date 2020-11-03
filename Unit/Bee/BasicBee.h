@@ -14,6 +14,7 @@ public:
     static const int BASE_MAX_ARMOR = 1;
     static const bool BASE_TARGETABILITY = true;
     static const int BASE_MOVE_SIZE = 1;
+    static const int BASE_ACTION_PHASE = 3;
 
     void act() override;
     void attack(Ant* target);

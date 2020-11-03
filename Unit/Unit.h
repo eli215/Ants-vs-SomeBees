@@ -3,7 +3,6 @@
 #define INC_5_UNIT_H
 
 #include "../Space.h"
-//class Space;        // forward declaration
 
 // abstract Unit class
 class Unit {
@@ -12,11 +11,12 @@ protected:
     const int maxArmor;     // maxArmor cannot be changed after initialization
     Space* location;
     bool targetable;
+    int actionPhase;
 
 public:
     Unit();
-    Unit(int armor, int maxArmor, Space* location, bool targetable);
-    //virtual ~Unit();
+    Unit(int armor, int maxArmor, Space* location, bool targetable, int actionPhase);
+    virtual ~Unit() = default;
     //Unit(const Unit&);
     //Unit operator=(const Unit& u);
 
@@ -31,7 +31,11 @@ public:
     void setLocation(Space *location);
     bool isTargetable() const;
     void setTargetable(bool targetable);
-    
+
+    int getActionPhase() const;
+
+    void setActionPhase(int actionPhase);
+
 };
 
 

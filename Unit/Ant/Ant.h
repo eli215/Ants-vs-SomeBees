@@ -12,12 +12,12 @@ protected:
 
 public:
     Ant(Space* location = nullptr);     // default constructor (w/ default location arg)
-    Ant(int armor, int maxArmor, Space* location, bool targetable, int foodCost);
+    Ant(int armor, int maxArmor, Space* location, bool targetable, int foodCost, int actionPhase);
 
-    virtual void act() = 0;
+    virtual void act();
 
     /* Getters & Setters */
-    int getFoodCost() const;
+    int getFoodCost();
     void setFoodCost(int foodCost);
 };
 

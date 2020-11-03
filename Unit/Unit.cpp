@@ -8,12 +8,14 @@ Unit::Unit() : maxArmor(0) {
     armor = 0;
     location = nullptr;
     targetable = false;
+    actionPhase = 0;
 }
 
-Unit::Unit(int armor, int maxArmor, Space *location, bool targetable) : maxArmor(maxArmor) {
+Unit::Unit(int armor, int maxArmor, Space *location, bool targetable, int actionPhase) : maxArmor(maxArmor) {
     this->armor = armor;
     this->location = location;
     this->targetable = targetable;
+    this->actionPhase = actionPhase;
 }
 
 /* Getters & Setters */
@@ -49,4 +51,13 @@ void Unit::setLocation(Space *location) {
 bool Unit::isAlive() const {
     return (armor > 0);
 }
+
+int Unit::getActionPhase() const {
+    return actionPhase;
+}
+
+void Unit::setActionPhase(int actionPhase) {
+    Unit::actionPhase = actionPhase;
+}
+
 

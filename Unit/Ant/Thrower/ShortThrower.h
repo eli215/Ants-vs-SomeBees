@@ -5,6 +5,8 @@
 #include "Thrower.h"
 
 class ShortThrower : public Thrower {
+public:
+    static const int BASE_FOOD_COST = 3;
 
 };
 

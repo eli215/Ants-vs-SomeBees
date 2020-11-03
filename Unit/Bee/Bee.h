@@ -11,7 +11,7 @@ protected:
 
 public:
     Bee(Space* location = nullptr);     // default constructor (w/ default location arg)
-    Bee(int armor, int maxArmor, Space* location, bool targetable, int moveSize);
+    Bee(int armor, int maxArmor, Space* location, bool targetable, int moveSize, int actionPhase);
 
     virtual void act() = 0;
 
@@ -20,3 +20,4 @@ public:
 
 
 #endif //ANTS_VS_SOMEBEES_BEE_H
+

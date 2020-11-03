@@ -6,6 +6,10 @@
 #include "Ant.h"
 
 class Harvester : public Ant {
+public:
+    static const int BASE_FOOD_COST = 2;
+
+protected:
 
 };
 

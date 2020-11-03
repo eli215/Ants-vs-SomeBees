@@ -2,7 +2,7 @@
 #include "Thrower.h"
 
 Thrower::Thrower(Space* location) :
-    Ant(BASE_MAX_ARMOR, BASE_MAX_ARMOR, location, BASE_TARGETABILITY, BASE_FOOD_COST) {
+    Ant(BASE_MAX_ARMOR, BASE_MAX_ARMOR, location, BASE_TARGETABILITY, BASE_FOOD_COST, BASE_ACTION_PHASE) {
     this->attackPower = BASE_ATTACK_POWER;
     this->attackRange = BASE_ATTACK_RANGE;
 }

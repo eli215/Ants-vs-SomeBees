@@ -6,6 +6,8 @@
 #include "Ant.h"
 
 class Wall : public Ant {
+    public:
+    static const int BASE_FOOD_COST = 4;
 
 };
 

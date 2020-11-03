@@ -3,7 +3,7 @@
 
 // Default constructor (location is default-null)
 BasicBee::BasicBee(Space *location)
-    : Bee(BASE_MAX_ARMOR, BASE_MAX_ARMOR, location, BASE_TARGETABILITY, BASE_MOVE_SIZE) {
+    : Bee(BASE_MAX_ARMOR, BASE_MAX_ARMOR, location, BASE_TARGETABILITY, BASE_MOVE_SIZE, BASE_ACTION_PHASE) {
     this->attackPower = BASE_ATTACK_POWER;
     this->attackRange = BASE_ATTACK_RANGE;
 }

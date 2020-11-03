@@ -1,47 +1,46 @@
 
 #include "Ninja.h"
+#include "../Bee/Bee.h"
 
 /*
-Ninja::Ninja(int armor, int maxArmor, Space *location, bool targetable, int foodCost, std::vector<Bee *> watchlist)
+Ninja::Ninja(int armor, int maxArmor, Space *location, bool targetable, int foodCost, std::vector<Bee *> targets)
     : Ant(armor, maxArmor, location, targetable, foodCost) {
-    this->watchlist = watchlist;
+    this->targets = targets;
 } */
 
 // default constructor (location is default-null)
 Ninja::Ninja(Space* location) :
-Ant(BASE_MAX_ARMOR, BASE_MAX_ARMOR, location, BASE_TARGETABILITY, BASE_FOOD_COST) {
+Ant(BASE_MAX_ARMOR, BASE_MAX_ARMOR, location, BASE_TARGETABILITY, BASE_FOOD_COST, BASE_ACTION_PHASE) {
     this->attackPower = BASE_ATTACK_POWER;
-    // determine watchlist based on provided location
+    // determine targets based on provided location
     if (location) {
-        this->watchlist.reserve(location->getBees().size());
+        this->targets.reserve(location->getBees().size());
         for (int i = 0; i < location->getBees().size(); i++) {
-            watchlist.push_back(location->getBees()[i]);
+            targets.push_back(location->getBees()[i]);
         }
     }
 }
 
 void Ninja::act() {
-    // detect whether any potential targets have passed by, add any new bees to watchlist
-    bool hasPassed[watchlist.size()];
+    // mark whether any existing targets have passed by; add any new bees to targets
+    bool hasPassed[targets.size()];
 
-    for (int i = 0, foundMatch = 0; i < location->getBees().size(); i++) {
+    for (int i = 0, foundMatch = 0; i < location->getBees().size(); i++) {  // for each bee at this space
         Bee *bee = location->getBees()[i];
-        // check if this bee is already being watched, or if it's new
-        for (int j = 0; !foundMatch && j < watchlist.size(); j++) {
-            if (watchlist[j] == bee) {
-                hasPassed[j] = false;       // this bee was wise enough to stay put
+        for (int j = 0; !foundMatch && j < targets.size(); j++) {   // for each existing target
+            if (targets[j] == bee) {    // check if this bee is an existing target
+                hasPassed[j] = false;
                 foundMatch = true;
             }
         }
         if (!foundMatch) {      // we haven't seen this bee before; add it to targets
-            watchlist.push_back(bee);
+            targets.push_back(bee);
         }
     }
-
-    for (int i = 0; i < watchlist.size(); i++) {
+    for (int i = 0; i < targets.size(); i++) {
         if (hasPassed[i]) {     // if this bee made the mistake of crossing a Ninja
-            attack(watchlist[i]);           // attack the bee
-            watchlist.erase(watchlist.begin() + i);       // remove the bee
+            attack(targets[i]);           // attack the bee
+            targets.erase(targets.begin() + i);       // remove the bee
         }
     }
 }

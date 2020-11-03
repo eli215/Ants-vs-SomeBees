@@ -2,12 +2,12 @@
 #include "Bee.h"
 
 // default constructor - shouldn't be used
-Bee::Bee(Space* location) : Unit(0, 0, location, false) {
+Bee::Bee(Space* location) : Unit(0, 0, location, false, 0) {
 
 }
 
-Bee::Bee(int armor, int maxArmor, Space *location, bool targetable, int moveSize)
-        : Unit(armor, maxArmor, location, targetable) {
+Bee::Bee(int armor, int maxArmor, Space *location, bool targetable, int moveSize, int actionPhase)
+        : Unit(armor, maxArmor, location, targetable, actionPhase) {
     this->moveSize = moveSize;
 }
 
