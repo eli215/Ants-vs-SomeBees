@@ -9,6 +9,7 @@ public:
     Bodyguard(Space* location = nullptr);
     void act() override;
 
+    static const std::string BASE_NAME;     // = "Bodyguard"
     static const int BASE_FOOD_COST = 4;
     static const int BASE_MAX_ARMOR = 2;
     static const int BASE_TARGETABILITY = true;

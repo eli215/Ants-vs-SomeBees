@@ -1,16 +1,19 @@
 
+#include <iostream>
 #include "Thrower.h"
 
+const std::string Thrower::BASE_NAME("Thrower");
+
 Thrower::Thrower(Space* location) :
-    Ant(BASE_MAX_ARMOR, BASE_MAX_ARMOR, location, BASE_TARGETABILITY, BASE_FOOD_COST, BASE_ACTION_PHASE) {
+    Ant(BASE_NAME, BASE_MAX_ARMOR, BASE_MAX_ARMOR, location, BASE_TARGETABILITY, BASE_FOOD_COST, BASE_ACTION_PHASE) {
     this->attackPower = BASE_ATTACK_POWER;
     this->minAttackRange = BASE_MIN_ATTACK_RANGE;
     this->maxAttackRange = BASE_MAX_ATTACK_RANGE;
 }
 
-Thrower::Thrower(int armor, int maxArmor, Space *location, bool targetable, int foodCost,
+Thrower::Thrower(std::string name, int armor, int maxArmor, Space *location, bool targetable, int foodCost,
                  int actionPhase, int attackPower, int minAttackRange, int maxAttackRange)
-                 : Ant(armor, maxArmor, location, targetable, foodCost, actionPhase) {
+                 : Ant(name, armor, maxArmor, location, targetable, foodCost, actionPhase) {
     this->attackPower = attackPower;
     this->minAttackRange = minAttackRange;
     this->maxAttackRange = maxAttackRange;
@@ -20,7 +23,8 @@ Thrower::Thrower(int armor, int maxArmor, Space *location, bool targetable, int 
 void Thrower::act() {
     Bee* target = enemyInRange();
     if (target) {       // if target != null, we have a target
-        attack(target);
+        if (attack(target))
+            std::cout << "Thrower inflicts " << attackPower << " on a Bee.\n";
     }
 }
 

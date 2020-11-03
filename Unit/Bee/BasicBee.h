@@ -9,15 +9,17 @@ class BasicBee : public Bee {
 public:
     BasicBee(Space* location = nullptr);
 
+    static const std::string BASE_NAME;     // = "BasicBee"
     static const int BASE_ATTACK_POWER = 1;
     static const int BASE_ATTACK_RANGE = 0;
     static const int BASE_MAX_ARMOR = 1;
     static const bool BASE_TARGETABILITY = true;
     static const int BASE_MOVE_SIZE = 1;
+    static const bool BASE_NEGATIVE_MOVE_DIRECTION = true;
     static const int BASE_ACTION_PHASE = 3;
 
     void act() override;
-    void attack(Ant* target);
+    bool attack(Ant* target);
 protected:
     int attackPower;
     int attackRange;

@@ -17,7 +17,7 @@ const std::string Graphics::BEE[] = {
       R"(    \\ \_//    )",
         "    (')(||)-   ",
         "        '''    "
-      //"     (%02d)      "
+      //"      %02d       "
 };
 
 const std::string Graphics::ANT[] = {
@@ -25,7 +25,7 @@ const std::string Graphics::ANT[] = {
       R"(     \(")/     )",
        "      -( )-     ",
       R"(     /(_)\     )"
-      //"     (%d)      "
+      //"      %1d       "
 };
 
 const std::string Graphics::ANT_AND_BEE[] = {
@@ -34,7 +34,7 @@ const std::string Graphics::ANT_AND_BEE[] = {
       R"(-( )-  \\ \_// )",
       R"(/(_)\  (')(||)-)",
         "           ''' "
-      //"(x%-d)      (x%02d)"
+      //" x%-1d        x%02d "
 };
 
 

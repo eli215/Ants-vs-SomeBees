@@ -14,6 +14,7 @@ public:
     Fire(Space* location = nullptr);   // default constructor (optional location parameter)
 
     //static const int BASE_ATTACK_POWER = 1;
+    static const std::string BASE_NAME;     // = "Fire"
     static const int BASE_MAX_ARMOR = 1;
     static const bool BASE_TARGETABILITY = true;
     static const int BASE_FOOD_COST = 4;

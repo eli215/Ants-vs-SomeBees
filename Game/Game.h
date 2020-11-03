@@ -5,10 +5,10 @@
 #include <vector>
 #include <string>
 #include "Space.h"
-#include "Unit/Unit.h"
-#include "Unit/Ant/Ant.h"
-#include "Unit/Bee/BasicBee.h"
-#include "Unit/Ant/Thrower/Thrower.h"
+#include "../Unit/Unit.h"
+#include "../Unit/Ant/Ant.h"
+#include "../Unit/Bee/BasicBee.h"
+#include "../Unit/Ant/Thrower/Thrower.h"
 
 class Game {
 public:

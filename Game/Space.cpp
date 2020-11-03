@@ -1,8 +1,9 @@
 
 #include "Space.h"
 //#include "Unit/Ant/Ant.h"
-#include "Unit/Ant/Bodyguard.h"
-#include "Unit/Bee/Bee.h"
+#include "../Unit/Ant/Bodyguard.h"
+#include "../Unit/Bee/Bee.h"
+#include "../Unit/Bee/BasicBee.h"
 #include <typeinfo>
 
 Space::Space() {
@@ -32,7 +33,7 @@ void Space::setAnts(const std::vector<Ant *> &ants) {
     this->ants = ants;
 }
 
-const std::vector<Bee *> &Space::getBees() const {
+std::vector<Bee *> &Space::getBees() {
     return bees;
 }
 
@@ -60,11 +61,21 @@ void Space::setNext(Space *next) {
     this->next = next;
 }
 
-void Space::move() {
-    Bee* b;
-    b->move();
-
-
+void Space::move(Bee* bee) {
+    Space* curLoc = bee->getLocation();
+    Space* newLoc = (bee->isNegativeMoveDirection()) ? curLoc->getLast() : curLoc->getNext();
+    int beeInd = 0;
+    for (int i = 0; i < curLoc->getBees().size(); i++) {        // find this bee's index in the Bee vector
+        if (bee == curLoc->getBees()[i]) {
+            beeInd = i;
+            break;
+        }
+    }
+    if (newLoc) {
+        curLoc->getBees().erase(curLoc->getBees().begin() + beeInd);    // remove the bee from previous location
+        bee->setLocation(newLoc);        // update its location to new Space
+        newLoc->insertBee(bee);      // insert bee into new location
+    }
 }
 
 Space *Space::getLast() const {

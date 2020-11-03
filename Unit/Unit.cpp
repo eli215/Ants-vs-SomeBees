@@ -11,7 +11,8 @@ Unit::Unit() : maxArmor(0) {
     actionPhase = 0;
 }
 
-Unit::Unit(int armor, int maxArmor, Space *location, bool targetable, int actionPhase) : maxArmor(maxArmor) {
+Unit::Unit(std::string name, int armor, int maxArmor, Space *location, bool targetable, int actionPhase) : maxArmor(maxArmor) {
+    this->name = name;
     this->armor = armor;
     this->location = location;
     this->targetable = targetable;
@@ -58,6 +59,14 @@ int Unit::getActionPhase() const {
 
 void Unit::setActionPhase(int actionPhase) {
     Unit::actionPhase = actionPhase;
+}
+
+const std::string &Unit::getName() const {
+    return name;
+}
+
+void Unit::setName(const std::string &name) {
+    this->name = name;
 }
 
 

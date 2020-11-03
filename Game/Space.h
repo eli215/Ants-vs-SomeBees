@@ -15,17 +15,17 @@ protected:
     std::vector<Bee*> bees;
     bool blocked;
 
-    Space *last; // x
-    Space *next; // x
+    Space *last;
+    Space *next;
 public:
-    Space *getLast() const; //x
-    void setLast(Space *last);  // x
-    Space *getNext();   // x
-    void setNext(Space *next); //x
+    Space *getLast() const;
+    void setLast(Space *last);
+    Space *getNext();
+    void setNext(Space *next);
 
     //Space(const int coords[2] = nullptr); // x
     Space();
-    void move();
+    static void move(Bee* bee);
 
     /* Getters & Setters */
     const int *getCoordinates() const;
@@ -33,7 +33,7 @@ public:
     const std::vector<Ant *> &getAnts() const;
     void setAnts(const std::vector<Ant *> &ants);
 
-    const std::vector<Bee *> &getBees() const;
+    std::vector<Bee *> &getBees();
     void setBees(const std::vector<Bee *> &bees);
 
     bool isBlocked() const;

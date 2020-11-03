@@ -3,15 +3,12 @@
 #include "Ninja.h"
 #include "../Bee/Bee.h"
 
-/*
-Ninja::Ninja(int armor, int maxArmor, Space *location, bool targetable, int foodCost, std::vector<Bee *> targets)
-    : Ant(armor, maxArmor, location, targetable, foodCost) {
-    this->targets = targets;
-} */
+const std::string Ninja::BASE_NAME("Ninja");
+
 
 // default constructor (location is default-null)
 Ninja::Ninja(Space* location) :
-Ant(BASE_MAX_ARMOR, BASE_MAX_ARMOR, location, BASE_TARGETABILITY, BASE_FOOD_COST, BASE_ACTION_PHASE) {
+Ant(BASE_NAME, BASE_MAX_ARMOR, BASE_MAX_ARMOR, location, BASE_TARGETABILITY, BASE_FOOD_COST, BASE_ACTION_PHASE) {
     this->attackPower = BASE_ATTACK_POWER;
     // determine targets based on provided location
     if (location) {

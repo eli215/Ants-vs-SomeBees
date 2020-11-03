@@ -4,14 +4,15 @@
 
 #include "Ant.h"
 
+
 class Ninja : public Ant {
 protected:
     int attackPower;
     std::vector<Bee*> targets;
 public:
     Ninja(Space* location = nullptr);   // default constructor (optional location parameter)
-    //Ninja(int armor, int maxArmor, Space* location, bool targetable, int foodCost, std::vector<Bee*> targets);
 
+    static const std::string BASE_NAME;     // = "Ninja"
     static const int BASE_ATTACK_POWER = 1;
     static const int BASE_MAX_ARMOR = 1;
     static const bool BASE_TARGETABILITY = false;

@@ -9,6 +9,7 @@ public:
     LongThrower(Space* location = nullptr);
     void act() override;
 
+    static const std::string BASE_NAME;     // = "LongThrower"
     static const int BASE_FOOD_COST = 3;
     static const int BASE_MAX_ARMOR = 1;
     static const int BASE_ATTACK_POWER = 1;

@@ -13,6 +13,7 @@ public:
     int getFoodProduction() const;
     void setFoodProduction(int foodProduction);
 
+    static const std::string BASE_NAME;     // = "Harvester"
     static const int BASE_FOOD_COST = 2;
     static const int BASE_MAX_ARMOR = 1;
     static const int BASE_TARGETABILITY = true;

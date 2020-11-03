@@ -1,8 +1,11 @@
 
+#include <iostream>
 #include "Harvester.h"
 
+const std::string Harvester::BASE_NAME("Harvester");
+
 Harvester::Harvester(Space *location)
-    : Ant(BASE_MAX_ARMOR,BASE_MAX_ARMOR, location, BASE_TARGETABILITY,BASE_FOOD_COST, BASE_ACTION_PHASE) {
+    : Ant(BASE_NAME, BASE_MAX_ARMOR,BASE_MAX_ARMOR, location, BASE_TARGETABILITY,BASE_FOOD_COST, BASE_ACTION_PHASE) {
     this->foodProduction = BASE_FOOD_PRODUCTION;
 }
 
@@ -16,4 +19,5 @@ void Harvester::setFoodProduction(int foodProduction) {
 
 void Harvester::act() {
     //Ant::act();
+    std::cout << "Harvester produced " << foodProduction << " food.\n";
 }

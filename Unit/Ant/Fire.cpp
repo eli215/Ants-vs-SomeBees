@@ -3,9 +3,11 @@
 #include "Fire.h"
 #include "../Bee/Bee.h"
 
+const std::string Fire::BASE_NAME("Fire");
+
 // default constructor (location is default-null)
 Fire::Fire(Space* location) :
-        Ant(BASE_MAX_ARMOR, BASE_MAX_ARMOR, location, BASE_TARGETABILITY, BASE_FOOD_COST, BASE_ACTION_PHASE) {
+        Ant(BASE_NAME, BASE_MAX_ARMOR, BASE_MAX_ARMOR, location, BASE_TARGETABILITY, BASE_FOOD_COST, BASE_ACTION_PHASE) {
     // determine targets based on provided location
     if (location) {
         this->targets.reserve(location->getBees().size());
@@ -16,7 +18,7 @@ Fire::Fire(Space* location) :
 }
 
 void Fire::act() {
-    if (isAlive())      // only act upon being killed
+    if (isAlive())      // only act if this unit has died
         return;
     // all bees which were sharing the space have now exploded
     int beesSlain = 0;

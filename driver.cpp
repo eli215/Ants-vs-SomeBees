@@ -5,7 +5,7 @@
 ********************************************************************/
 
 #include <iostream>
-#include "Game.h"
+#include "Game/Game.h"
 
 
 int main() {

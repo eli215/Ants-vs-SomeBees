@@ -8,14 +8,23 @@
 class Bee : public Unit {
 protected:
     int moveSize;
+    bool negativeMoveDirection;
 
 public:
     Bee(Space* location = nullptr);     // default constructor (w/ default location arg)
-    Bee(int armor, int maxArmor, Space* location, bool targetable, int moveSize, int actionPhase);
+    Bee(std::string name, int armor, int maxArmor, Space* location, bool targetable, int moveSize, bool negMoveDir, int actionPhase);
 
     virtual void act() = 0;
 
-    void move();
+    //void move();  // Space class handles movement now
+
+    bool isNegativeMoveDirection() const;
+
+    void setNegativeMoveDirection(bool negativeMoveDirection);
+
+    int getMoveSize() const;
+
+    void setMoveSize(int moveSize);
 };
 
 

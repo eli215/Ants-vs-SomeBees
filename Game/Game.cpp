@@ -3,14 +3,14 @@
 #include "Game.h"
 #include <typeinfo>
 #include <iostream>
-#include "Unit/Ant/Harvester.h"
-#include "Unit/Ant/Thrower/Thrower.h"
-#include "Unit/Ant/Thrower/ShortThrower.h"
-#include "Unit/Ant/Thrower/LongThrower.h"
-#include "Unit/Ant/Bodyguard.h"
-#include "Unit/Ant/Wall.h"
-#include "Unit/Ant/Ninja.h"
-#include "Unit/Ant/Fire.h"
+#include "../Unit/Ant/Harvester.h"
+#include "../Unit/Ant/Thrower/Thrower.h"
+#include "../Unit/Ant/Thrower/ShortThrower.h"
+#include "../Unit/Ant/Thrower/LongThrower.h"
+#include "../Unit/Ant/Bodyguard.h"
+#include "../Unit/Ant/Wall.h"
+#include "../Unit/Ant/Ninja.h"
+#include "../Unit/Ant/Fire.h"
 
 Game::Game() {
     this->numAnts = 0;
@@ -42,33 +42,6 @@ void Game::game_loop() {
         spawnBee();
         //redrawBoard();
         // 2. Allow player to place an ant
-        int col = 1;
-        Space* testLoc = &board[0][col++];
-        Ant* testAnt = new Harvester(testLoc);
-        insertAnt(testAnt);
-        testLoc = &board[0][col++];
-        testAnt = new Thrower(testLoc);
-        insertAnt(testAnt);
-        testLoc = &board[0][col++];
-        testAnt = new ShortThrower(testLoc);
-        insertAnt(testAnt);
-        testLoc = &board[0][col++];
-        testAnt = new LongThrower(testLoc);
-        insertAnt(testAnt);
-        testLoc = &board[0][col++];
-        testAnt = new Bodyguard(testLoc);
-        insertAnt(testAnt);
-        testLoc = &board[0][col++];
-        testAnt = new Wall(testLoc);
-        insertAnt(testAnt);
-        testLoc = &board[0][col++];
-        testAnt = new Ninja(testLoc);
-        insertAnt(testAnt);
-        testLoc = &board[0][col++];
-        testAnt = new Fire(testLoc);
-        insertAnt(testAnt);
-        int testAnts = testLoc->getAnts().size();
-
         turnChoice();
 
         // Action Phase

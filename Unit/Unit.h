@@ -2,11 +2,13 @@
 #ifndef INC_5_UNIT_H
 #define INC_5_UNIT_H
 
-#include "../Space.h"
+#include <string>
+#include "../Game/Space.h"
 
 // abstract Unit class
 class Unit {
 protected:
+    std::string name;
     int armor;
     const int maxArmor;     // maxArmor cannot be changed after initialization
     Space* location;
@@ -15,7 +17,7 @@ protected:
 
 public:
     Unit();
-    Unit(int armor, int maxArmor, Space* location, bool targetable, int actionPhase);
+    Unit(std::string name, int armor, int maxArmor, Space* location, bool targetable, int actionPhase);
     virtual ~Unit() = default;
     //Unit(const Unit&);
     //Unit operator=(const Unit& u);
@@ -35,6 +37,10 @@ public:
     int getActionPhase() const;
 
     void setActionPhase(int actionPhase);
+
+    const std::string &getName() const;
+
+    void setName(const std::string &name);
 
 };
 
