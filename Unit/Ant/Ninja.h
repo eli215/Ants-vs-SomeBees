@@ -19,7 +19,7 @@ public:
     static const int BASE_ACTION_PHASE = 3;
 
     void act() override;
-    void attack(Bee* target);
+    bool attack(Bee* target);
 };
 
 

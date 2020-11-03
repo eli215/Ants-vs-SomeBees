@@ -15,6 +15,16 @@
 Game::Game() {
     this->numAnts = 0;
     this->numBees = 0;
+
+    // it may be kind of janky that 'board' is both an array and a doubly-linked list, but for now it does the job.
+    int row = 0;
+    for (int i = 0; i < BOARD_COLUMNS - 1; i++) {       // forward iteration
+        board[row][i].setNext(&board[row][i + 1]);  // set 'next' pointer
+    }
+
+    for (int i = BOARD_COLUMNS - 1; i > 0; i--) {       // reverse iteration
+        board[row][i].setLast(&board[row][i - 1]);  // set 'last' pointer
+    }
 }
 
 Game::~Game() {
@@ -32,9 +42,37 @@ void Game::game_loop() {
         spawnBee();
         //redrawBoard();
         // 2. Allow player to place an ant
+        int col = 1;
+        Space* testLoc = &board[0][col++];
+        Ant* testAnt = new Harvester(testLoc);
+        insertAnt(testAnt);
+        testLoc = &board[0][col++];
+        testAnt = new Thrower(testLoc);
+        insertAnt(testAnt);
+        testLoc = &board[0][col++];
+        testAnt = new ShortThrower(testLoc);
+        insertAnt(testAnt);
+        testLoc = &board[0][col++];
+        testAnt = new LongThrower(testLoc);
+        insertAnt(testAnt);
+        testLoc = &board[0][col++];
+        testAnt = new Bodyguard(testLoc);
+        insertAnt(testAnt);
+        testLoc = &board[0][col++];
+        testAnt = new Wall(testLoc);
+        insertAnt(testAnt);
+        testLoc = &board[0][col++];
+        testAnt = new Ninja(testLoc);
+        insertAnt(testAnt);
+        testLoc = &board[0][col++];
+        testAnt = new Fire(testLoc);
+        insertAnt(testAnt);
+        int testAnts = testLoc->getAnts().size();
+
         turnChoice();
 
         // Action Phase
+        std::cout << "Combat log: \n";
         // 3. Ants act, beginning with leftmost ant
         //for (int i = 0; i < BOARD_ROWS; i++) {
         int row = 0;
@@ -72,18 +110,30 @@ void Game::redrawBoard() {
 }
 
 
-// insert a unit at the board coordinates specified: {rowInd, colInd}
+// insert a unit at the board (at coordinates, if specified: {rowInd, colInd})
 void Game::insertAnt(Ant* ant, int coordinates[2]) {
-    int rowInd = coordinates[0];
-    int colInd = coordinates[1];
-    board[rowInd][colInd].insertAnt(ant);
+    Space* space;
+    if (coordinates) {
+        int rowInd = coordinates[0];
+        int colInd = coordinates[1];
+        space = &board[rowInd][colInd];
+    } else {
+        space = ant->getLocation();
+    }
+    space->insertAnt(ant);
 }
 
-// insert a unit at the board coordinates specified: {rowInd, colInd}
+// insert a unit at the board (at coordinates, if specified: {rowInd, colInd})
 void Game::insertBee(Bee* bee, int coordinates[2]) {
-    int rowInd = coordinates[0];
-    int colInd = coordinates[1];
-    board[rowInd][colInd].insertBee(bee);
+    Space* space;
+    if (coordinates) {
+        int rowInd = coordinates[0];
+        int colInd = coordinates[1];
+        space = &board[rowInd][colInd];
+    } else {
+        space = bee->getLocation();
+    }
+    space->insertBee(bee);
 }
 
 void Game::spawnBee() {
@@ -115,11 +165,13 @@ void Game::turnChoice() {
             Ant *ant;
             int *coords;
             do {
-                if(!selectAnt(ant)) {       // if user chose to cancel
+                coords = selectLocation();
+                Space* location = &board[coords[0]][coords[1]];     // get the Space at the user's coordinates
+                if(!selectAnt(ant, location)) {       // if user chose to cancel
                     repeatTurn = true;
                     break;
                 }
-                coords = selectLocation();
+
             } while (!canPlace(ant, coords));
             if (!repeatTurn)
                 insertAnt(ant, coords);
@@ -129,7 +181,7 @@ void Game::turnChoice() {
 
 
 
-bool Game::selectAnt(Ant* selection) {
+bool Game::selectAnt(Ant* selection, Space* location) {
     std::string input = "";
     int validInput = 0;
     bool repeat = false;
@@ -150,35 +202,35 @@ bool Game::selectAnt(Ant* selection) {
         switch (validInput) {
             case 1:
                 if (Harvester::BASE_FOOD_COST > foodBank)    repeat = true;
-                else        selection = new Harvester();
+                else        selection = new Harvester(location);
                 break;
             case 2:
                 if (Thrower::BASE_FOOD_COST > foodBank)    repeat = true;
-                else        selection = new Thrower();
+                else        selection = new Thrower(location);
                 break;
             case 3:
                 if (ShortThrower::BASE_FOOD_COST > foodBank)    repeat = true;
-                else        selection = new ShortThrower();
+                else        selection = new ShortThrower(location);
                 break;
             case 4:
                 if (LongThrower::BASE_FOOD_COST > foodBank)    repeat = true;
-                else        selection = new LongThrower();
+                else        selection = new LongThrower(location);
                 break;
             case 5:
                 if (Bodyguard::BASE_FOOD_COST > foodBank)    repeat = true;
-                else        selection = new Bodyguard();
+                else        selection = new Bodyguard(location);
                 break;
             case 6:
                 if (Wall::BASE_FOOD_COST > foodBank)    repeat = true;
-                else        selection = new Wall();
+                else        selection = new Wall(location);
                 break;
             case 7:
                 if (Ninja::BASE_FOOD_COST > foodBank)    repeat = true;
-                else        selection = new Ninja();
+                else        selection = new Ninja(location);
                 break;
             case 8:
                 if (Fire::BASE_FOOD_COST > foodBank)    repeat = true;
-                else        selection = new Fire();
+                else        selection = new Fire(location);
                 break;
             case 9:
                 canceled = true;

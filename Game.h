@@ -41,7 +41,7 @@ protected:
 
     int parseInput(const std::string& input);
 
-    bool selectAnt(Ant*);
+    bool selectAnt(Ant*, Space*);
     int* selectLocation();
 
     void printAntTypes();
@@ -50,8 +50,8 @@ protected:
 
     void redrawBoard();
 
-    void insertAnt(Ant *ant, int coordinates[2]);
-    void insertBee(Bee *bee, int coordinates[2]);
+    void insertAnt(Ant *ant, int coordinates[2] = nullptr);     // optional coords
+    void insertBee(Bee *bee, int coordinates[2] = nullptr);     // optional coords
 };
 
 

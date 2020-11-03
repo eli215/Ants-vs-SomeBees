@@ -1,4 +1,5 @@
 
+#include <iostream>
 #include "Fire.h"
 #include "../Bee/Bee.h"
 
@@ -18,12 +19,19 @@ void Fire::act() {
     if (isAlive())      // only act upon being killed
         return;
     // all bees which were sharing the space have now exploded
+    int beesSlain = 0;
     for (int i = 0; i < targets.size(); i++) {
-        attack(targets[i]);
+        if (attack(targets[i]))
+            beesSlain++;
     }
+    std::cout << "Fire Ant combusts upon being slain, incinerating " << beesSlain << " nearby Bee(s).\n";
 }
 
-void Fire::attack(Bee *target) {
+bool Fire::attack(Bee *target) {
+    bool success = true;
     if (target->isAlive())
         target->setArmor(0);        // this bee is now dead
+    else    // attack failed if unit is already dead
+        success = false;
+    return success;
 }

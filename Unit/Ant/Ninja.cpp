@@ -1,4 +1,5 @@
 
+#include <iostream>
 #include "Ninja.h"
 #include "../Bee/Bee.h"
 
@@ -24,7 +25,6 @@ Ant(BASE_MAX_ARMOR, BASE_MAX_ARMOR, location, BASE_TARGETABILITY, BASE_FOOD_COST
 void Ninja::act() {
     // mark whether any existing targets have passed by; add any new bees to targets
     bool hasPassed[targets.size()];
-
     for (int i = 0, foundMatch = 0; i < location->getBees().size(); i++) {  // for each bee at this space
         Bee *bee = location->getBees()[i];
         for (int j = 0; !foundMatch && j < targets.size(); j++) {   // for each existing target
@@ -37,15 +37,22 @@ void Ninja::act() {
             targets.push_back(bee);
         }
     }
+    int damageInflicted = 0;
     for (int i = 0; i < targets.size(); i++) {
         if (hasPassed[i]) {     // if this bee made the mistake of crossing a Ninja
-            attack(targets[i]);           // attack the bee
+            if (attack(targets[i]))           // attack the bee
+                damageInflicted++;
             targets.erase(targets.begin() + i);       // remove the bee
         }
     }
+    std::cout << "Ninja Ant silently inflicts " << damageInflicted << " damage on passing Bee(s).\n";
 }
 
-void Ninja::attack(Bee *target) {
+bool Ninja::attack(Bee *target) {
+    bool success = true;
     if (target->isAlive())
         target->setArmor(target->getArmor() - attackPower);
+    else    // attack failed if unit is already dead
+        success = false;
+    return success;
 }

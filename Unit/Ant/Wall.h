@@ -7,7 +7,13 @@
 
 class Wall : public Ant {
     public:
+    Wall(Space* location = nullptr);
+    void act() override;
+
     static const int BASE_FOOD_COST = 4;
+    static const int BASE_MAX_ARMOR = 4;
+    static const int BASE_TARGETABILITY = true;
+    static const int BASE_ACTION_PHASE = 1;
 
 };
 

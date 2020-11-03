@@ -6,9 +6,14 @@
 
 class Bodyguard : public Ant {
 public:
-    static const int BASE_FOOD_COST = 4;
-protected:
+    Bodyguard(Space* location = nullptr);
+    void act() override;
 
+    static const int BASE_FOOD_COST = 4;
+    static const int BASE_MAX_ARMOR = 2;
+    static const int BASE_TARGETABILITY = true;
+    static const int BASE_ACTION_PHASE = 1;
+protected:
 
 };
 
