@@ -30,7 +30,7 @@ public:
     /* Getters & Setters */
     const int *getCoordinates() const;
 
-    const std::vector<Ant *> &getAnts() const;
+    std::vector<Ant *> &getAnts();
     void setAnts(const std::vector<Ant *> &ants);
 
     std::vector<Bee *> &getBees();

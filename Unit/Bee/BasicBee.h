@@ -20,11 +20,10 @@ public:
 
     void act() override;
     bool attack(Ant* target);
+    Ant *enemyInRange();
 protected:
     int attackPower;
     int attackRange;
-
-    Ant *enemyInRange();
 };
 
 

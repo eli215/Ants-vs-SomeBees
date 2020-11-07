@@ -17,7 +17,7 @@ const int *Space::getCoordinates() const {
     return coordinates;
 }
 
-const std::vector<Ant *> &Space::getAnts() const {
+std::vector<Ant *> &Space::getAnts() {
     return ants;
 }
 

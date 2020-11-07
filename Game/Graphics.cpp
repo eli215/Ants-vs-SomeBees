@@ -2,7 +2,7 @@
 #include "Graphics.h"
 
 
-const std::string Graphics::BEE_HIVE[] = {
+const std::vector<std::string> Graphics::BEE_HIVE = {
         "  .-=-.  ",
         " (`=-=`) ",
         "(`=-=-=`)",
@@ -11,30 +11,40 @@ const std::string Graphics::BEE_HIVE[] = {
         " (`=-=`) ",
         "  `-=-`  " };
 
-const std::string Graphics::BEE[] = {
+const std::vector<std::string> Graphics::BEE = {
         "        __     ",
       R"(       / \\    )",
       R"(    \\ \_//    )",
         "    (')(||)-   ",
-        "        '''    "
-      //"      %02d       "
+        "        '''    ",
+        "      x%2d      "
 };
 
-const std::string Graphics::ANT[] = {
+const std::vector<std::string> Graphics::ANT = {
+        "               ",
         "               ",
       R"(     \(")/     )",
-       "      -( )-     ",
-      R"(     /(_)\     )"
-      //"      %1d       "
+        "     -( )-     ",
+      R"(     /(_)\     )",
+        "      x%1d      "
 };
 
-const std::string Graphics::ANT_AND_BEE[] = {
+const std::vector<std::string> Graphics::ANT_AND_BEE = {
         "           __  ",
-      R"(\(")/	   / \\ )",
-      R"(-( )-  \\ \_// )",
-      R"(/(_)\  (')(||)-)",
-        "           ''' "
-      //" x%-1d        x%02d "
+      R"(      	   / \\ )",
+      R"(\(")/  \\ \_// )",
+      R"(-( )-  (')(||)-)",
+      R"(/(_)\      ''' )",
+        " x%1d        x%-2d "
+};
+
+const std::vector<std::string>Graphics::BLANK = {
+        "               ",
+        "               ",
+        "               ",
+        "               ",
+        "               ",
+        "               "
 };
 
 

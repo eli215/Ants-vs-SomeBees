@@ -18,16 +18,9 @@ public:
     //Game operator=(const Game& g);
     static const int BOARD_ROWS = 1;
     static const int BOARD_COLUMNS = 10;
-
-
+    static const int STARTING_FOOD = 50;
 
     void game_loop();
-
-
-
-    static constexpr Ant* ANT_TYPES[8] = {
-
-    };
 
 protected:
     Space board[BOARD_ROWS][BOARD_COLUMNS];
@@ -41,7 +34,7 @@ protected:
 
     int parseInput(const std::string& input);
 
-    bool selectAnt(Ant*, Space*);
+    bool selectAnt(Ant**, Space*);
     int* selectLocation();
 
     void printAntTypes();
