@@ -23,9 +23,10 @@ Thrower::Thrower(std::string name, std::string abbrev, int armor, int maxArmor, 
 
 void Thrower::act() {
     Bee* target = enemyInRange();
-    if (target) {       // if target != null, we have a target
-        if (attack(target))
-            std::cout << "Thrower inflicts " << attackPower << " on a Bee.\n";
+    if (!target)
+        return;     // if target != null, we have a target
+    if (attack(target)) {
+        std::cout << "Thrower inflicts " << attackPower << " on a Bee.\n";
     }
 }
 

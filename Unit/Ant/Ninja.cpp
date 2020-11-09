@@ -43,7 +43,8 @@ void Ninja::act() {
             targets.erase(targets.begin() + i);       // remove the bee
         }
     }
-    std::cout << "Ninja Ant silently inflicts " << damageInflicted << " damage on passing Bee(s).\n";
+    if (damageInflicted > 0)
+        std::cout << "Ninja Ant silently inflicts " << damageInflicted << " damage on passing Bee(s).\n";
 }
 
 bool Ninja::attack(Bee *target) {

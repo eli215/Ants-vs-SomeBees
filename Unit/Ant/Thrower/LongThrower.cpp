@@ -20,7 +20,8 @@ void LongThrower::act() {
         if (attack(target))
             damageInflicted += attackPower;
     }
-    std::cout << "LongThrower Ant inflicts " << damageInflicted << " damage on distant Bee(s).\n";
+    if (damageInflicted > 0)
+        std::cout << "LongThrower Ant inflicts " << damageInflicted << " damage on distant Bee(s).\n";
 }
 
 

@@ -26,7 +26,7 @@ Ant* BasicBee::enemyInRange() {
     for (int i = 0; i <= attackRange && space; i++, space = space->getLast()) {
         // for each ant at this space
         for (int j = 0; j < space->getAnts().size(); j++) {
-            if (space->getAnts()[j]->isTargetable())
+            if (space->getAnts()[j]->isTargetable() && space->getAnts()[j]->isAlive())
                 return space->getAnts()[j];         // return closest targetable ant that is within range
         }
     }

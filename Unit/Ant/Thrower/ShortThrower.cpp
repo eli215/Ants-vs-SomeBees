@@ -22,5 +22,6 @@ void ShortThrower::act() {
         if (attack(target))
             damageInflicted += attackPower;
     }
-    std::cout << "ShortThrower Ant inflicts " << damageInflicted << " damage on nearby Bee(s).\n";
+    if (damageInflicted > 0)
+        std::cout << "ShortThrower Ant inflicts " << damageInflicted << " damage on nearby Bee(s).\n";
 }

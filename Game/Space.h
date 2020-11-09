@@ -14,23 +14,28 @@ protected:
     std::vector<Ant*> ants;
     std::vector<Bee*> bees;
     int unitCount;
-    bool blocked;
+    //bool blocked;
 
     Space *last;
     Space *next;
 public:
+    Space();
+    //Space(const int coords[2] = nullptr);
+    ~Space();
+    static void move(Bee* bee);
+    void insertAnt(Ant *ant);
+    void insertBee(Bee *bee);
+
+    /* Getters & Setters */
     Space *getLast() const;
     void setLast(Space *last);
+
     Space *getNext();
     void setNext(Space *next);
 
-    //Space(const int coords[2] = nullptr); // x
-    Space();
-    static void move(Bee* bee);
-
-    /* Getters & Setters */
     const int *getCoordinates() const;
     void setCoordinates(int row, int col);
+
     int getRow() const;
     int getCol() const;
 
@@ -40,15 +45,10 @@ public:
     std::vector<Bee *> &getBees();
     void setBees(const std::vector<Bee *> &bees);
 
-    bool isBlocked() const;
-    void setBlocked(bool blocked);
-
-    void insertAnt(Ant *ant);
-
-    void insertBee(Bee *bee);
+    //bool isBlocked() const;
+    //void setBlocked(bool blocked);
 
     int getUnitCount() const;
-
     void setUnitCount(int unitCount);
 };
 

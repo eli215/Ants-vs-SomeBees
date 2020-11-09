@@ -1,15 +1,22 @@
 
 #include "Graphics.h"
 
+const std::vector<std::string> Graphics::QUEEN_ANT = {
+        "       +       ",
+        "      oOo      ",
+      R"(      """      )",
+      R"(     \(")/     )",
+        "     -( )-     ",
+      R"(     /(_)\     )",
+};
 
 const std::vector<std::string> Graphics::BEE_HIVE = {
-        "  .-=-.  ",
-        " (`=-=`) ",
-        "(`=-=-=`)",
-        "(`=-(@)`)",
-        "(`=-=-=`)",
-        " (`=-=`) ",
-        "  `-=-`  " };
+        "     .-=-.     ",
+        "    (`=-=`)    ",
+        "   (`=-=-=`)   ",
+        "   (`=-(@)`)   ",
+        "   (`=-=-=`)   ",
+        "    '-=-=-'    " };
 
 const std::vector<std::string> Graphics::BEE = {
         "        __     ",
@@ -17,7 +24,7 @@ const std::vector<std::string> Graphics::BEE = {
       R"(    \\ \_//    )",
         "    (')(||)-   ",
         "        '''    ",
-        "      x%2d      "
+        "      x%-2d      "
 };
 
 const std::vector<std::string> Graphics::ANT = {

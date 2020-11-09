@@ -8,10 +8,22 @@
 #include <iostream>
 
 Space::Space() {
-    blocked = false;
+    //blocked = false;
     last = nullptr;
     next = nullptr;
     unitCount = 0;
+}
+
+Space::~Space() {
+    // delete Ants allocated with 'new'
+    for (int i = 0; i < ants.size(); i++) {
+        delete ants[i];
+    }
+
+    // delete Bees allocated with 'new'
+    for (int i = 0; i < bees.size(); i++) {
+        delete bees[i];
+    }
 }
 
 
@@ -24,7 +36,7 @@ std::vector<Ant *> &Space::getAnts() {
 }
 
 void Space::insertAnt(Ant* ant) {
-    if (typeid(Bodyguard) == typeid(ant)) {
+    if (typeid(Bodyguard) == typeid(*ant)) {
         ants.insert(ants.begin(), ant);     // bodyguard goes before other ant(s)
     } else {
         ants.push_back(ant);
@@ -47,14 +59,6 @@ void Space::insertBee(Bee* bee) {
 
 void Space::setBees(const std::vector<Bee *> &bees) {
     this->bees = bees;
-}
-
-bool Space::isBlocked() const {
-    return blocked;
-}
-
-void Space::setBlocked(bool blocked) {
-    this->blocked = blocked;
 }
 
 Space *Space::getNext() {
