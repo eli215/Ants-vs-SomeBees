@@ -10,6 +10,7 @@ public:
     void act() override;
 
     static const std::string BASE_NAME;     // = "Bodyguard"
+    static const std::string BASE_ABBREV;   // = "Bodyguard"
     static const int BASE_FOOD_COST = 4;
     static const int BASE_MAX_ARMOR = 2;
     static const int BASE_TARGETABILITY = true;

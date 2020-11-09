@@ -23,7 +23,9 @@ Game::Game() {
     int row = 0;
     for (int i = 0; i < BOARD_COLUMNS - 1; i++) {       // forward iteration
         board[row][i].setNext(&board[row][i + 1]);  // set 'next' pointer
+        board[row][i].setCoordinates(row, i);       // set coordinates
     }
+    board[row][BOARD_COLUMNS - 1].setCoordinates(row, BOARD_COLUMNS - 1);   // set last coord
 
     for (int i = BOARD_COLUMNS - 1; i > 0; i--) {       // reverse iteration
         board[row][i].setLast(&board[row][i - 1]);  // set 'last' pointer
@@ -32,9 +34,6 @@ Game::Game() {
 
 Game::~Game() {
 
-    for (int i = 0; i < BOARD_COLUMNS; i++) {
-        //delete board[i];
-    }
 }
 
 void Game::game_loop() {
@@ -42,25 +41,27 @@ void Game::game_loop() {
     int turnCount = 1;
     const int row = 0;      // since the game only supports one row currently
 
-    redrawBoard();      // draw a blank board for user to reference on their first turn
+    //redrawBoard();      // draw a blank board for user to reference on their first turn
     do {
-        std::cout << "[Turn #" << turnCount++ << "]=============================================================================================\n";
-        // PLAYER TURN CHOICE
-        turnChoice();
+        std::cout << "\n[Turn #" << turnCount++ << "]*******************************************************************"
+                                                   "**********************************************************************\n\n";
 
         // SPAWN NEW BEE & REDRAW BOARD
         spawnBee();
         redrawBoard();
-        std::cout << "Turn log: \n";
-        std::cout << "The Hive spawns a new Bee.\n";
+        std::cout << "The Hive spawned a new Bee.\n\n";
+
+        // PLAYER TURN CHOICE
+        turnChoice();
+        //redrawBoard();
 
         // ACTION PHASE 1 - Ants act
         bool havePhase3 = false;
         for (int col = 1; col < BOARD_COLUMNS; col++) {
             Space* space = &board[row][col];
             // for each Ant in this space
-            int s = space->getAnts().size();
-            for (int i = 0; i < space->getAnts().size(); i++) {
+            int size = space->getAnts().size();
+            for (int i = 0; i < size; i++) {
                 Ant* ant = space->getAnts()[i];
                 if (ant->getActionPhase() == 3) {
                     havePhase3 = true;
@@ -77,7 +78,8 @@ void Game::game_loop() {
         for (int col = 0; col < BOARD_COLUMNS; col++) {
             Space* space = &board[row][col];
             // for each Bee in this space
-            for (int i = 0; i < space->getBees().size(); i++) {
+            int size = space->getBees().size();
+            for (int i = 0; i < size; i++) {
                 BasicBee* bBee = dynamic_cast<BasicBee*>(space->getBees()[i]);      // for now, we are assuming all Bees are BasicBees
                 if (bBee->enemyInRange())
                     bBee->act();            // if possible, attack an Ant in range
@@ -106,6 +108,7 @@ void Game::game_loop() {
                 Ant* ant = space->getAnts()[i];
                 if (!ant->isAlive()) {
                     space->getAnts().erase(space->getAnts().begin() + i);   // remove the dead Ant
+                    space->setUnitCount(space->getUnitCount() - 1);
                     numAnts--;
                 }
             }
@@ -114,88 +117,169 @@ void Game::game_loop() {
                 Bee* bee = space->getBees()[i];
                 if (!bee->isAlive()) {
                     space->getBees().erase(space->getBees().begin() + i);   // remove the dead Ant
-                    numAnts--;
+                    space->setUnitCount(space->getUnitCount() - 1);
+                    numBees--;
                 }
             }
         }
 
     } while (numBees > 0 && board[0][0].getBees().empty());
 
-    // victory message
+    if (numBees < 1)
+        std::cout << "\n\nCONGRATULATIONS, YOU WIN!!! THE BEES HAVE BEEN DEFEATED.\n";
+    else
+        std::cout << "\n\nYou have failed to protect the Queen. You lose. :(\n:(\n:(\n:(\n:(";
+    std::cin.ignore();
 }
 
 void Game::redrawBoard() {
+    // Possible space types
     // 0 - blank space
     // 1 - ant space
     // 2 - bee space
     // 3 - ant & bee space
     int row = 0;
-    int spaceTypeIdx[BOARD_COLUMNS];
+    int colSpaceType[BOARD_COLUMNS];
     for (int i = 0; i < BOARD_COLUMNS; i++) {
         if (!board[row][i].getAnts().empty()) {
             if (!board[row][i].getBees().empty())
-                spaceTypeIdx[i] = 3;           // Ants & Bees
+                colSpaceType[i] = 3;           // Ants & Bees
             else
-                spaceTypeIdx[i] = 1;           // Ants only
+                colSpaceType[i] = 1;           // Ants only
         } else if (!board[row][i].getBees().empty())
-            spaceTypeIdx[i] = 2;               // Bees only
+            colSpaceType[i] = 2;               // Bees only
         else
-            spaceTypeIdx[i] = 0;               // Blank
+            colSpaceType[i] = 0;               // Blank
     }
 
     int linesPerSpace = Graphics::BLANK.size();
-    std::vector<std::vector<std::string>> spaceType;
-    spaceType.push_back(Graphics::BLANK);
-    spaceType.push_back(Graphics::ANT);
-    spaceType.push_back(Graphics::BEE);
-    spaceType.push_back(Graphics::ANT_AND_BEE);
+    std::vector<std::vector<std::string>> spaceArt;
+    spaceArt.push_back(Graphics::BLANK);
+    spaceArt.push_back(Graphics::ANT);
+    spaceArt.push_back(Graphics::BEE);
+    spaceArt.push_back(Graphics::ANT_AND_BEE);
 
+    // PRINT TOP BORDER
+    std::cout << "+";
+    for (int i = 0; i < BOARD_COLUMNS; i++)
+        std::cout << "---------------+";
+    std::cout << "\n";
+    // PRINT GRAPHICS
+    for (int line = 0; line < linesPerSpace - 1; line++) {
+        std::cout << "|";
+        for (int col = 0; col < BOARD_COLUMNS; col++) {
+            std::cout << spaceArt[colSpaceType[col]][line] << "|";
+        }
+        std::cout << "\n";
+    }
+
+    // PRINT UNIT COUNT for each square that isn't blank
+    std::cout << "|";
+    std::string str1;
+    std::string str2;
+    str1.resize(16);
+    str2.resize(16);
+
+    for (int col = 0, lineIdx = 5; col < BOARD_COLUMNS; col++) {
+        int type = colSpaceType[col];
+        int size1, size2;
+
+        if (type == 0)
+            str1 = spaceArt[type][lineIdx];
+        else if (type == 3) {
+            size1 = board[row][col].getAnts().size();
+            size2 = board[row][col].getBees().size();
+            sprintf(&str1[0], spaceArt[type][lineIdx].c_str(), size1, size2);
+        } else {
+            if (type == 1)
+                size1 = board[row][col].getAnts().size();
+            else
+                size1 = board[row][col].getBees().size();
+            sprintf(&str1[0], spaceArt[type][lineIdx].c_str(), size1);
+        }
+        std::cout << str1 << "|";
+    }
+    //str.resize( strlen( str.data() ) + 1 );
+    std::cout << "\n";
+
+    // PRINT BOTTOM BORDER
     std::cout << "+";
     for (int i = 0; i < BOARD_COLUMNS; i++)
         std::cout << "---------------+";
     std::cout << "\n";
 
-    for (int line = 0; line < linesPerSpace - 1; line++) {
-        std::cout << "|";
-        for (int col = 0; col < BOARD_COLUMNS; col++) {
-            //sprintf(&str[0], )
-            std::cout << spaceType[spaceTypeIdx[col]][line] << "|";
+    // PRINT SPACE NUMBER LABEL
+    std::cout << "|";
+    for (int i = 0; i < BOARD_COLUMNS; i++) {
+        sprintf(&str1[0], "%5s[%-2d]%6s", " ", i + 1, " ");
+        std::cout << str1 << "|";
+    }
+    std::cout << "\n";
+
+    // PRINT ANOTHER BORDER
+    std::cout << "|";
+    for (int i = 0; i < BOARD_COLUMNS; i++)
+        std::cout << "---------------|";
+    std::cout << "\n";
+
+    // PRINT UNIT LIST BELOW EACH SPACE
+    int maxSpaceAnts = 0;
+    int maxSpaceBees = 0;
+    for (int i = 0; i < BOARD_COLUMNS; i++) {
+        maxSpaceAnts = std::max(maxSpaceAnts, (int)board[row][i].getAnts().size());
+        maxSpaceBees = std::max(maxSpaceBees, (int)board[row][i].getBees().size());
+    }
+    maxSpaceAnts = std::min(maxSpaceAnts, 2);     // max 2 lines for ants
+    maxSpaceBees = std::min(maxSpaceBees, 4);     // max 4 lines for bees
+
+    // FIRST PRINT ANT LIST
+    if (numAnts > 0) {
+        for (int line = 0; line < maxSpaceAnts; line++) {
+            std::cout << "|";
+            for (int col = 0; col < BOARD_COLUMNS; col++) {
+                if (board[row][col].getAnts().size() > line) {
+                    Ant *ant = board[row][col].getAnts()[line];
+                    sprintf(&str1[0], "%s(%d/%d)", ant->getAbbrev().c_str(), ant->getArmor(), ant->getMaxArmor());
+                    sprintf(&str2[0], "%-15s", str1.c_str());
+                } else{
+                    str2 = "               ";       // blank this column has no more bees to print
+                }
+                std::cout << str2 << "|";
+            }
+            std::cout << "\n";
         }
+        // print border line
+        std::cout << "|";
+        for (int i = 0; i < BOARD_COLUMNS; i++)
+            std::cout << "---------------|";
         std::cout << "\n";
     }
 
-    // print unit count for each square that isn't blank
-    std::cout << "|";
-    std::string str;
-    str.resize(16);
-
-    for (int col = 0, lineIdx = 5; col < BOARD_COLUMNS; col++) {
-        int type = spaceTypeIdx[col];
-        int size1, size2;
-
-        if (type == 1)
-            size1 = board[row][col].getAnts().size();
-        else if (type == 2)
-            size1 = board[row][col].getBees().size();
-        else if (type == 3) {
-            size1 = board[row][col].getAnts().size();
-            size2 = board[row][col].getBees().size();
+    // THEN PRINT BEE LIST (first 3 bees; 4th line will be ellipses)
+    if (numBees > 0) {
+        for (int line = 0; line < maxSpaceBees; line++) {
+            std::cout << "|";
+            for (int col = 0; col < BOARD_COLUMNS; col++) {
+                if (board[row][col].getBees().size() > line) {
+                    Bee *bee = board[row][col].getBees()[line];
+                    if (line == 3)
+                        sprintf(&str1[0], "...x%-2d", board[row][col].getBees().size() - 3);
+                    else
+                        sprintf(&str1[0], "~%s(%d/%d)", bee->getAbbrev().c_str(), bee->getArmor(), bee->getMaxArmor());
+                    sprintf(&str2[0], "%15s", str1.c_str());
+                } else{
+                    str2 = "               ";       // blank this column has no more bees to print
+                }
+                std::cout << str2 << "|";
+            }
+            std::cout << "\n";
         }
-
-        if (type == 0)
-            str = spaceType[type][lineIdx];
-        else if (type == 3)
-            sprintf( &str[0], spaceType[type][lineIdx].c_str(), size1, size2);
-        else
-            sprintf( &str[0], spaceType[type][lineIdx].c_str(), size1);
-
-        std::cout << str << "|";
+        // print border line
+        std::cout << "|";
+        for (int i = 0; i < BOARD_COLUMNS; i++)
+            std::cout << "---------------|";
+        std::cout << "\n";
     }
-    //str.resize( strlen( str.data() ) + 1 );
-    std::cout << "\n";
-
-    std::cout << "+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+\n";
-
 }
 
 // insert a unit at the board (at coordinates, if specified: {rowInd, colInd})
@@ -209,6 +293,7 @@ void Game::insertAnt(Ant* ant, int coordinates[2]) {
         space = ant->getLocation();
     }
     space->insertAnt(ant);
+    numAnts++;
 }
 
 // insert a unit at the board (at coordinates, if specified: {rowInd, colInd})
@@ -222,8 +307,10 @@ void Game::insertBee(Bee* bee, int coordinates[2]) {
         space = bee->getLocation();
     }
     space->insertBee(bee);
+    numBees++;
 }
 
+// Spawn a BasicBee
 void Game::spawnBee() {
     // if expanded to support multiple board rows, here is where we will randomly select
     // which rows to spawn bees in
@@ -231,7 +318,6 @@ void Game::spawnBee() {
     Space *spawnPoint = &board[0][BOARD_COLUMNS - 1];
     Bee* bee = new BasicBee(spawnPoint);
     insertBee(bee);
-    numBees++;
 }
 
 void Game::turnChoice() {
@@ -254,7 +340,7 @@ void Game::turnChoice() {
             Ant *ant;
             int *coords;
             do {
-                coords = selectLocation();
+                coords = selectLocation();      // [0] = row, [1] = col
                 Space* location = &board[coords[0]][coords[1]];     // get the Space at the user's coordinates
                 if(!selectAnt(&ant, location)) {       // if user chose to cancel
                     repeatTurn = true;
@@ -262,8 +348,14 @@ void Game::turnChoice() {
                 }
 
             } while (!canPlace(ant, coords));
-            if (!repeatTurn)
+            if (!repeatTurn) {
                 insertAnt(ant, coords);
+                std::cout << "\n***** [Action Log] *****\n";
+                std::cout << "You placed a " << ant->getName() << " in space [" << coords[1] + 1 << "].\n";
+            }
+        } else {
+            std::cout << "\n***** [Action Log] *****\n";
+            std::cout << "You skipped your turn.\n";
         }
     } while (repeatTurn);
 }
@@ -345,7 +437,7 @@ int *Game::selectLocation() {
     coords[0] = 0;  // ROW INDEX
 
     do {
-        std::cout << "Select a column # between 2 and " << BOARD_COLUMNS << ": \n";
+        std::cout << "Select a column # between 2 and " << BOARD_COLUMNS << ": ";
         std::getline(std::cin, input);
         validInput = parseInput(input);
     } while (validInput < 2 || validInput > BOARD_COLUMNS);
@@ -356,6 +448,11 @@ int *Game::selectLocation() {
 
 
 void Game::printAntTypes() {
+    // TO-DO: Make this print out a nice looking table with
+    // Name | Food Cost | Armor | Damage | Brief Description
+    // std::cout << "\u221E"; unicode infinity symbol? for fire ant
+    // Count the exact number of characters in this table, and cout backspaces to
+    // delete the table after each time it prints?
     std::cout <<
               "1. " << Harvester::BASE_NAME << '\n' <<
               "2. " << Thrower::BASE_NAME << '\n' <<
@@ -365,6 +462,7 @@ void Game::printAntTypes() {
               "6. " << Wall::BASE_NAME << '\n' <<
               "7. " << Ninja::BASE_NAME << '\n' <<
               "8. " << Fire::BASE_NAME << '\n';
+    
 }
 
 // Parse string to int, returns INT_MAX if input contains invalid characters.
@@ -385,6 +483,7 @@ bool Game::canPlace(Ant* ant, int *coords) {
     int row = coords[0];
     int col = coords[1];
 
+    // TO-DO: TEST AND FIX THIS. Make sure that Walls and Bodyguards cannot have a Bodyguard.
     // If space is uninhabited OR If space contains one non-Bodyguard and incoming Ant IS a Bodyguard
    if (board[row][col].getAnts().empty() ||
         (board[row][col].getAnts().size() == 1 && typeid(board[row][col].getAnts()[0]) != typeid(Bodyguard)

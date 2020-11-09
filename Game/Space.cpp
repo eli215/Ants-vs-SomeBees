@@ -5,11 +5,13 @@
 #include "../Unit/Bee/Bee.h"
 #include "../Unit/Bee/BasicBee.h"
 #include <typeinfo>
+#include <iostream>
 
 Space::Space() {
     blocked = false;
     last = nullptr;
     next = nullptr;
+    unitCount = 0;
 }
 
 
@@ -27,6 +29,7 @@ void Space::insertAnt(Ant* ant) {
     } else {
         ants.push_back(ant);
     }
+    unitCount++;
 }
 
 void Space::setAnts(const std::vector<Ant *> &ants) {
@@ -39,6 +42,7 @@ std::vector<Bee *> &Space::getBees() {
 
 void Space::insertBee(Bee* bee) {
     bees.push_back(bee);
+    unitCount++;
 }
 
 void Space::setBees(const std::vector<Bee *> &bees) {
@@ -75,6 +79,9 @@ void Space::move(Bee* bee) {
         curLoc->getBees().erase(curLoc->getBees().begin() + beeInd);    // remove the bee from previous location
         bee->setLocation(newLoc);        // update its location to new Space
         newLoc->insertBee(bee);      // insert bee into new location
+        curLoc->unitCount--;
+        newLoc->unitCount++;
+        std::cout << "Bee moves from [" << curLoc->getCol() + 1 << "] --> [" << newLoc->getCol() + 1 << "].\n";
     }
 }
 
@@ -86,4 +93,23 @@ void Space::setLast(Space *last) {
     Space::last = last;
 }
 
+int Space::getRow() const {
+    return coordinates[0];
+}
 
+int Space::getCol() const {
+    return coordinates[1];
+}
+
+void Space::setCoordinates(int row, int col) {
+    coordinates[0] = row;
+    coordinates[1] = col;
+}
+
+int Space::getUnitCount() const {
+    return unitCount;
+}
+
+void Space::setUnitCount(int unitCount) {
+    this->unitCount = unitCount;
+}

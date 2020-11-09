@@ -4,11 +4,12 @@
 #include "../Bee/Bee.h"
 
 const std::string Ninja::BASE_NAME("Ninja");
+const std::string Ninja::BASE_ABBREV("Ninja");
 
 
 // default constructor (location is default-null)
 Ninja::Ninja(Space* location) :
-Ant(BASE_NAME, BASE_MAX_ARMOR, BASE_MAX_ARMOR, location, BASE_TARGETABILITY, BASE_FOOD_COST, BASE_ACTION_PHASE) {
+Ant(BASE_NAME, BASE_ABBREV, BASE_MAX_ARMOR, BASE_MAX_ARMOR, location, BASE_TARGETABILITY, BASE_FOOD_COST, BASE_ACTION_PHASE) {
     this->attackPower = BASE_ATTACK_POWER;
     // determine targets based on provided location
     if (location) {

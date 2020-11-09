@@ -9,6 +9,11 @@
 class Unit {
 protected:
     std::string name;
+    std::string abbrev;
+public:
+    const std::string &getAbbrev() const;
+
+protected:
     int armor;
     const int maxArmor;     // maxArmor cannot be changed after initialization
     Space* location;
@@ -17,7 +22,7 @@ protected:
 
 public:
     Unit();
-    Unit(std::string name, int armor, int maxArmor, Space* location, bool targetable, int actionPhase);
+    Unit(std::string name, std::string abbrev, int armor, int maxArmor, Space* location, bool targetable, int actionPhase);
     virtual ~Unit() = default;
     //Unit(const Unit&);
     //Unit operator=(const Unit& u);

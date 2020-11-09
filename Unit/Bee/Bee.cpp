@@ -2,13 +2,13 @@
 #include "Bee.h"
 
 // default constructor - shouldn't be used
-Bee::Bee(Space* location) : Unit("", 0, 0, location, false, 0) {
+Bee::Bee(Space* location) : Unit("", "", 0, 0, location, false, 0) {
     moveSize = 0;
     negativeMoveDirection = true;
 }
 
-Bee::Bee(std::string name, int armor, int maxArmor, Space *location, bool targetable, int moveSize, bool negMoveDir, int actionPhase)
-        : Unit(name, armor, maxArmor, location, targetable, actionPhase) {
+Bee::Bee(std::string name, std::string abbrev, int armor, int maxArmor, Space *location, bool targetable, int moveSize, bool negMoveDir, int actionPhase)
+        : Unit(name, abbrev, armor, maxArmor, location, targetable, actionPhase) {
     this->moveSize = moveSize;
     this->negativeMoveDirection = negMoveDir;
 }

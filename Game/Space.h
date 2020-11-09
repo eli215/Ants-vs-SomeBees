@@ -10,9 +10,10 @@ class Bee;
 
 class Space {
 protected:
-    int coordinates[2];       //x coordinates cannot be changed after initialization
+    int coordinates[2];
     std::vector<Ant*> ants;
     std::vector<Bee*> bees;
+    int unitCount;
     bool blocked;
 
     Space *last;
@@ -29,6 +30,9 @@ public:
 
     /* Getters & Setters */
     const int *getCoordinates() const;
+    void setCoordinates(int row, int col);
+    int getRow() const;
+    int getCol() const;
 
     std::vector<Ant *> &getAnts();
     void setAnts(const std::vector<Ant *> &ants);
@@ -42,6 +46,10 @@ public:
     void insertAnt(Ant *ant);
 
     void insertBee(Bee *bee);
+
+    int getUnitCount() const;
+
+    void setUnitCount(int unitCount);
 };
 
 

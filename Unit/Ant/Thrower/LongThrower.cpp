@@ -3,9 +3,10 @@
 #include "LongThrower.h"
 
 const std::string LongThrower::BASE_NAME("LongThrower");
+const std::string LongThrower::BASE_ABBREV("L.Thrower");
 
 LongThrower::LongThrower(Space *location)
-        : Thrower(BASE_NAME, BASE_MAX_ARMOR, BASE_MAX_ARMOR, location, BASE_TARGETABILITY,
+        : Thrower(BASE_NAME, BASE_ABBREV, BASE_MAX_ARMOR, BASE_MAX_ARMOR, location, BASE_TARGETABILITY,
                   BASE_FOOD_COST, BASE_ACTION_PHASE, BASE_ATTACK_POWER, BASE_MIN_ATTACK_RANGE, BASE_MAX_ATTACK_RANGE) {
 }
 

@@ -2,6 +2,8 @@
 
 #include "Unit.h"
 
+#include <utility>
+
 /* Constructors */
 
 Unit::Unit() : maxArmor(0) {
@@ -11,8 +13,9 @@ Unit::Unit() : maxArmor(0) {
     actionPhase = 0;
 }
 
-Unit::Unit(std::string name, int armor, int maxArmor, Space *location, bool targetable, int actionPhase) : maxArmor(maxArmor) {
-    this->name = name;
+Unit::Unit(std::string name, std::string abbrev, int armor, int maxArmor, Space *location, bool targetable, int actionPhase) : maxArmor(maxArmor) {
+    this->name = std::move(name);
+    this->abbrev = std::move(abbrev);
     this->armor = armor;
     this->location = location;
     this->targetable = targetable;
@@ -67,6 +70,10 @@ const std::string &Unit::getName() const {
 
 void Unit::setName(const std::string &name) {
     this->name = name;
+}
+
+const std::string &Unit::getAbbrev() const {
+    return abbrev;
 }
 
 

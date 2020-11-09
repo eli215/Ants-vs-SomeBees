@@ -12,7 +12,7 @@ protected:
 
 public:
     Bee(Space* location = nullptr);     // default constructor (w/ default location arg)
-    Bee(std::string name, int armor, int maxArmor, Space* location, bool targetable, int moveSize, bool negMoveDir, int actionPhase);
+    Bee(std::string name, std::string abbrev, int armor, int maxArmor, Space* location, bool targetable, int moveSize, bool negMoveDir, int actionPhase);
 
     virtual void act() = 0;
 

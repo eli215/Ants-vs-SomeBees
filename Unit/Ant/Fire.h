@@ -15,6 +15,7 @@ public:
 
     //static const int BASE_ATTACK_POWER = 1;
     static const std::string BASE_NAME;     // = "Fire"
+    static const std::string BASE_ABBREV;
     static const int BASE_MAX_ARMOR = 1;
     static const bool BASE_TARGETABILITY = true;
     static const int BASE_FOOD_COST = 4;

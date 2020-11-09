@@ -14,10 +14,11 @@ protected:
 
 public:
     Thrower(Space* location = nullptr);
-    Thrower(std::string name, int armor, int maxArmor, Space* location, bool targetability, int foodCost,
+    Thrower(std::string name, std::string abbrev, int armor, int maxArmor, Space* location, bool targetability, int foodCost,
             int actionPhase, int attackPower, int minAttackRange, int maxAttackRange);
 
     static const std::string BASE_NAME;     // = "Thrower"
+    static const std::string BASE_ABBREV;
     static const int BASE_ATTACK_POWER = 1;
     static const int BASE_MIN_ATTACK_RANGE = 0;
     static const int BASE_MAX_ATTACK_RANGE = 0;

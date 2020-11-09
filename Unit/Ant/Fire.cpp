@@ -4,10 +4,11 @@
 #include "../Bee/Bee.h"
 
 const std::string Fire::BASE_NAME("Fire");
+const std::string Fire::BASE_ABBREV("Fire");
 
 // default constructor (location is default-null)
 Fire::Fire(Space* location) :
-        Ant(BASE_NAME, BASE_MAX_ARMOR, BASE_MAX_ARMOR, location, BASE_TARGETABILITY, BASE_FOOD_COST, BASE_ACTION_PHASE) {
+        Ant(BASE_NAME, BASE_ABBREV, BASE_MAX_ARMOR, BASE_MAX_ARMOR, location, BASE_TARGETABILITY, BASE_FOOD_COST, BASE_ACTION_PHASE) {
     // determine targets based on provided location
     if (location) {
         this->targets.reserve(location->getBees().size());

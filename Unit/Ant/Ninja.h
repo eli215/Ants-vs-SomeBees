@@ -13,6 +13,7 @@ public:
     Ninja(Space* location = nullptr);   // default constructor (optional location parameter)
 
     static const std::string BASE_NAME;     // = "Ninja"
+    static const std::string BASE_ABBREV;
     static const int BASE_ATTACK_POWER = 1;
     static const int BASE_MAX_ARMOR = 1;
     static const bool BASE_TARGETABILITY = false;

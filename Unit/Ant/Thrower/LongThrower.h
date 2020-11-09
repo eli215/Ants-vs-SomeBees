@@ -10,6 +10,7 @@ public:
     void act() override;
 
     static const std::string BASE_NAME;     // = "LongThrower"
+    static const std::string BASE_ABBREV;
     static const int BASE_FOOD_COST = 3;
     static const int BASE_MAX_ARMOR = 1;
     static const int BASE_ATTACK_POWER = 1;
