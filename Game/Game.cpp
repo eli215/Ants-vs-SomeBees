@@ -433,20 +433,30 @@ bool Game::selectAnt(Ant** selection, Space* location) {
 }
 
 void Game::printAntTypes() {
-    // TO-DO: Make this print out a nice looking table with
-    // Name | Food Cost | Armor | Damage | Brief Description
-    // std::cout << "\u221E"; unicode infinity symbol? for fire ant
-    // Count the exact number of characters in this table, and cout backspaces to
-    // delete the table after each time it prints?
-    std::cout <<
-              "1. " << Harvester::BASE_NAME << '\n' <<
-              "2. " << Thrower::BASE_NAME << '\n' <<
-              "3. " << ShortThrower::BASE_NAME << '\n' <<
-              "4. " << LongThrower::BASE_NAME << '\n' <<
-              "5. " << Bodyguard::BASE_NAME << '\n' <<
-              "6. " << Wall::BASE_NAME << '\n' <<
-              "7. " << Ninja::BASE_NAME << '\n' <<
-              "8. " << Fire::BASE_NAME << '\n';
+    // TO-DO: Make this print out a nice looking formatted table with
+    // Name | Food Cost | Armor | Damage | Range | Brief Description
+    // std::cout << "\u221E"; unicode infinity symbol -- for fire ant
+
+    std::cout << 
+    "[1.] " << Harvester::BASE_NAME << " [Cost:] " << Harvester::BASE_FOOD_COST << " [Armor:] " << Harvester::BASE_MAX_ARMOR
+            << " [Production Rate:] " << Harvester::BASE_FOOD_PRODUCTION << " [Description:] Produces food each turn. \n" <<
+    "[2.] " << Thrower::BASE_NAME << " [Cost:] " << Thrower::BASE_FOOD_COST << " [Armor:] " << Thrower::BASE_MAX_ARMOR
+            << " [Damage:] " << Thrower::BASE_ATTACK_POWER << " [Range:] " << Thrower::BASE_MAX_ATTACK_RANGE <<
+            " [Description:] Throws a leaf at an adjacent enemy.\n"
+    "[3.] " << ShortThrower::BASE_NAME << " [Cost:] " << ShortThrower::BASE_FOOD_COST << " [Armor:] " << ShortThrower::BASE_MAX_ARMOR
+          << " [Damage:] " << ShortThrower::BASE_ATTACK_POWER << " [Range:] " << ShortThrower::BASE_MIN_ATTACK_RANGE << " - "
+          << ShortThrower::BASE_MAX_ATTACK_RANGE << " [Description:] Throws a leaves at nearest enemies in range.\n"
+    "[4.] " << LongThrower::BASE_NAME << " [Cost:] " << LongThrower::BASE_FOOD_COST << " [Armor:] " << LongThrower::BASE_MAX_ARMOR
+          << " [Damage:] " << LongThrower::BASE_ATTACK_POWER << " [Range:] " << LongThrower::BASE_MIN_ATTACK_RANGE << " - "
+          << BOARD_COLUMNS << " [Description:] Throws a leaves at nearest enemies in range.\n"
+    "[5.] " << Bodyguard::BASE_NAME << " [Cost:] " << Bodyguard::BASE_FOOD_COST << " [Armor:] " << Bodyguard::BASE_MAX_ARMOR
+          << " [Description:] Defends other Ants (besides Bodyguard or Wall). \n"
+    "[6.] " << Wall::BASE_NAME << " [Cost:] " << Wall::BASE_FOOD_COST << " [Armor:] " << Wall::BASE_MAX_ARMOR
+          << " [Description:] Blocks a space. \n"
+    "[7.] " << Ninja::BASE_NAME << " [Cost:] " << Ninja::BASE_FOOD_COST << " [Armor:] " << Ninja::BASE_MAX_ARMOR
+          << " [Damage:] " << Ninja::BASE_ATTACK_POWER << " [Description:] Invisible to Bees; damages them when they pass by.\n"
+    "[8.] " << Fire::BASE_NAME << " [Cost:] " << Fire::BASE_FOOD_COST << " [Armor:] " << Fire::BASE_MAX_ARMOR
+          << " [Damage:] K-O" << " [Description:] Upon death, explodes to destroy all adjacent Bees.\n";
 
 }
 
